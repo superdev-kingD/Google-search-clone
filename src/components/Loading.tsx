@@ -1,9 +1,10 @@
 import React from "react";
+import Loader from "react-loader-spinner";
 
-const Loading = () => {
+const Loading: React.FC = (): JSX.Element => {
   return (
-    <div>
-      <h1>Loading</h1>
+    <div className="flex justify-center items-center">
+      <Loader type="Puff" color="#00BFFF" height={550} width={80} />
     </div>
   );
 };

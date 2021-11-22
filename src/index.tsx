@@ -3,12 +3,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./global.scss";
+import ResultContextProvider from "./contexts/ResultContextProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ResultContextProvider>
+      <Router>
+        <App />
+      </Router>
+    </ResultContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -4,23 +4,32 @@ import ReactPlayer from "react-player";
 import { useResultContext } from "../contexts/ResultContextProvider";
 import Loading from "./Loading";
 
-// interface IResultContext {
-//   getResults: Promise<void>;
-//   results: unknown;
-//   searchTerm: string;
-//   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-//   isLoading: boolean;
-// }
-
 const Results = () => {
-  const { getResults, results, searchTerm, setSearchTerm, isLoading } = useResultContext();
+  const { isLoading,results,getResults } = useResultContext();
   const location = useLocation();
+
+  useEffect(()=>{ getResults("")},[])
+
   if (isLoading) return <Loading />;
-  return (
-    <div>
-      <h1>Results</h1>
-    </div>
-  );
+
+  switch (location.pathname) {
+    case "/search":
+      return (
+        <div className="flex flex-wrap justify-between space-y-6 sm:px-56">
+{results?.results?.map(({link,title},i)=>(
+  // 
+))}
+        </div>
+      );
+    case "/images":
+      return "IMAGES";
+    case "/news":
+      return "NEWS";
+    case "/videos":
+      return "VIDEOS";
+    default:
+      return "ERROR!";
+  }
 };
 
 export default Results;

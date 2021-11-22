@@ -1,17 +1,17 @@
 import React, { useContext, useState, createContext } from "react";
 
 interface IResultContext {
-  getResults?: Promise<void>;
+  getResults?: Promise<void> | CallableFunction;
   results?: unknown;
   searchTerm?: string;
   setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
   isLoading?: boolean;
 }
 
-const ResultContext = createContext<unknown | any>({});
+const ResultContext = createContext<unknown>({});
 const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
 
-const ResultContextProvider: React.FC = ({ children }): JSX.Element => {
+const ResultContextProvider = ({ children }: { children: React.ReactNode | React.ReactNode[] }): JSX.Element => {
   const [results, setResults] = useState<unknown>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -38,4 +38,4 @@ const ResultContextProvider: React.FC = ({ children }): JSX.Element => {
 
 export default ResultContextProvider;
 
-export const useResultContext = () => useContext(ResultContext);
+export const useResultContext = () => useContext(ResultContext) as IResultContext;
