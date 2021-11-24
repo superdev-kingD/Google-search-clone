@@ -4,11 +4,19 @@ import ReactPlayer from "react-player";
 import { useResultContext } from "../contexts/ResultContextProvider";
 import Loading from "./Loading";
 
-const Results = () => {
-  const { isLoading,results,getResults } = useResultContext();
+const Results = (): JSX.Element => {
+  const { isLoading, results, getResults, searchTerm } = useResultContext();
   const location = useLocation();
 
-  useEffect(()=>{ getResults("")},[])
+  useEffect(() => {
+    if (searchTerm) {
+      if (location.pathname === "/videos") {
+        getResults(`"/search/q=${searchTerm} videos`);
+      } else {
+        getResults(`${location.pathname}/q=${searchTerm}&num=40`);
+      }
+    }
+  }, [searchTerm, location.pathname]);
 
   if (isLoading) return <Loading />;
 
@@ -16,19 +24,33 @@ const Results = () => {
     case "/search":
       return (
         <div className="flex flex-wrap justify-between space-y-6 sm:px-56">
-{results?.results?.map(({link,title},i)=>(
-  // 
-))}
+          {results?.results?.map(({ link, title }, i) => (
+            <div key={i} className="md:w-2/5 w-full">
+              <a href={link} target="_blank" rel="noreferrer">
+                <p className="text-sm">{link?.length > 30 ? link.substring(0, 30) : link}</p>
+                <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">{title}</p>
+              </a>
+            </div>
+          ))}
         </div>
       );
     case "/images":
-      return "IMAGES";
+      return (
+        <div className="flex flex-wrap justify-center items-center">
+          {results?.image_results?.map(({ image, link: { href, title } }, i) => (
+            <a className="sm:p-3 p-5" href={href} key={i} target="_blank" rel="noreferrer">
+              <img src={image?.src} alt={title} loading="lazy" />
+              <p className="w-36 break-words text-sm mt-2">{title}</p>
+            </a>
+          ))}
+        </div>
+      );
     case "/news":
-      return "NEWS";
+      return <div>NEWS</div>;
     case "/videos":
-      return "VIDEOS";
+      return <div>VIDEOS</div>;
     default:
-      return "ERROR!";
+      return <div>ERROR!</div>;
   }
 };
 
