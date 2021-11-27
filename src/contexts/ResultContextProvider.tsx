@@ -1,40 +1,12 @@
 import React, { useContext, useState, createContext } from "react";
+import { IResults } from "../interfaces";
 
-interface results {
-  answers: string[];
-  device_region: string;
-  device_type: string;
-  image_results: {
-    image: {
-      src: string;
-    };
-    link: {
-      href: string;
-      title: string;
-    };
-  }[];
-  results: {
-    additional_links: {
-      href: string;
-      text: string;
-    }[];
-    cite: {
-      domain: string;
-      span: string;
-    };
-    description: string;
-    link: string;
-    title: string;
-  }[];
-  total: number;
-  ts: number;
-}
 interface IResultContext {
   getResults: (type: string) => Promise<void>;
-  results?: results;
-  searchTerm?: string;
-  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
-  isLoading?: boolean;
+  results: IResults;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  isLoading: boolean;
 }
 
 const ResultContext = createContext<unknown>({});
@@ -43,7 +15,7 @@ const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
 const ResultContextProvider = ({ children }: { children: React.ReactNode | React.ReactNode[] }): JSX.Element => {
   const [results, setResults] = useState<IResultContext>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>("chelsea");
+  const [searchTerm, setSearchTerm] = useState<string>("Thor");
 
   const getResults = async (type: string): Promise<void> => {
     setIsLoading(true);

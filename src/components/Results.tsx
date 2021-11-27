@@ -10,10 +10,10 @@ const Results = (): JSX.Element => {
 
   useEffect(() => {
     if (searchTerm) {
-      if (location.pathname === "/videos") {
-        getResults(`"/search/q=${searchTerm} videos`);
+      if (location?.pathname === "/videos") {
+        getResults(`/search/q=${searchTerm} videos`);
       } else {
-        getResults(`${location.pathname}/q=${searchTerm}&num=40`);
+        getResults(`${location?.pathname}/q=${searchTerm}&num=40`);
       }
     }
   }, [searchTerm, location.pathname]);
@@ -27,7 +27,7 @@ const Results = (): JSX.Element => {
           {results?.results?.map(({ link, title }, i) => (
             <div key={i} className="md:w-2/5 w-full">
               <a href={link} target="_blank" rel="noreferrer">
-                <p className="text-sm">{link?.length > 30 ? link.substring(0, 30) : link}</p>
+                <p className="text-sm">{link?.length > 30 ? link?.substring(0, 30) : link}</p>
                 <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">{title}</p>
               </a>
             </div>
@@ -46,9 +46,32 @@ const Results = (): JSX.Element => {
         </div>
       );
     case "/news":
-      return <div>NEWS</div>;
+      return (
+        <div className="flex flex-wrap justify-between space-y-6 sm:px-56 items-center">
+          {results?.entries?.map(({ links, title, source, id }) => (
+            <div key={id} className="md:w-2/5 w-full">
+              <a href={links?.[0]?.href} target="_blank" rel="noreferrer" className="hover:underline">
+                <p className="text-lg dark:text-blue-300 text-blue-700">{title}</p>
+                <div className="flex gap-4">
+                  <a href={source?.href} target="_blank" rel="noreferrer">
+                    {source?.href}
+                  </a>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      );
     case "/videos":
-      return <div>VIDEOS</div>;
+      return (
+        <div className="flex flex-wrap">
+          {results?.results?.map((video, i) => (
+            <div key={i} className="p-2">
+              <ReactPlayer url={video?.additional_links?.[0].href} controls width="355px" height="200px" title={video?.additional_links?.[0].text} />
+            </div>
+          ))}
+        </div>
+      );
     default:
       return <div>ERROR!</div>;
   }
