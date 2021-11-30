@@ -1,25 +1,33 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Goggl 🔎",
+  "name": "Goggl 🔎",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/196.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "196x196"
     },
     {
-      "src": "logo512.png",
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#3B82F6",
+  "background_color": "#111827",
+  "description": "Search the web",
+  "screenshots": [
+    {
+      "src": "/screen_shots/localhost_3000_search.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    },
+    {
+      "src": "/screen_shots/localhost_3000_search (1).png",
+      "type": "image/jpg",
+      "sizes": "540x720"
+    }
+  ]
 }

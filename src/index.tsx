@@ -5,6 +5,12 @@ import App from "./App";
 import "./global.scss";
 import ResultContextProvider from "./contexts/ResultContextProvider";
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/service-worker.js");
+  });
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <ResultContextProvider>

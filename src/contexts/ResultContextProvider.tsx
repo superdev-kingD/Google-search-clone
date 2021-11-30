@@ -15,7 +15,7 @@ const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
 const ResultContextProvider = ({ children }: { children: React.ReactNode | React.ReactNode[] }): JSX.Element => {
   const [results, setResults] = useState<IResultContext>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>("Liverpool");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const getResults = async (type: string): Promise<void> => {
     setIsLoading(true);
@@ -29,7 +29,6 @@ const ResultContextProvider = ({ children }: { children: React.ReactNode | React
       },
     });
     const data = await res.json();
-    console.log(data);
     setResults(data);
     setIsLoading(false);
   };
